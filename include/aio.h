@@ -1,31 +1,17 @@
 // aio.h - asynchronous input and output
 // #include <aio.h>
 
-// Used for file sizes.
-// off_t shall be a signed integer type.
-typedef int off_t;
+// off_t, pthread_attr_t, size_t, and ssize_t.
+#include <sys/types.h>
 
-// Used to identify a thread attribute object.
-// Has no defined comparison or assignment operators.
-//
-// XXX: <sys/types.h> in POSIX has no info about the fields, leaving empty for
-// now.
-union pthread_attr_t {};
-typedef union pthread_attr_t pthread_attr_t;
+// struct sigevent.
+#include <signal.h>
+// The tag sigevent shall be declared as naming an incomplete structure type,
+// the contents of which are described in the <signal.h> header.
+typedef struct sigevent sigevent;
 
-// Used for sizes of objects.
-// size_t shall be an unsigned integer type.
-typedef unsigned int size_t;
-
-// Used for a count of bytes or an error indication.
-// ssize_t shall be a signed integer type.
-typedef int ssize_t;
-
-// The tag sigevent shall be declared as naming an incomplete structure type, the
-// contents of which are described in the <signal.h>
-//
-// XXX: <signal.h> in POSIX has no info about the fields, leaving empty for now.
-struct sigevent {};
+// struct timespec.
+#include <time.h>
 
 struct aiocb
 {
@@ -37,9 +23,6 @@ struct aiocb
   struct sigevent aio_sigevent   // Signal number and value.
   int             aio_lio_opcode // Operation to be performed.
 };
-
-// XXX: <time.h> in POSIX has no info about the fields, leaving empty for now.
-struct timespec {};
 
 // Symbolic constants.
 enum
